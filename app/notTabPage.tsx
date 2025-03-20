@@ -1,10 +1,10 @@
-import { View, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { Link, Stack, useLocalSearchParams } from 'expo-router';
 import { useList } from '@/hooks';
 
 export default function NotFoundScreen() {
     const params = useLocalSearchParams();
-    const text = 'anniu';
     console.log('%c [ params ]-6', 'font-size:13px; background:pink; color:#bf2c9f;', params);
     const { data, isLoading, error } = useList();
     console.log(
@@ -13,28 +13,28 @@ export default function NotFoundScreen() {
         { data, isLoading, error },
     );
     return (
-        <View>
+        <>
             <Stack.Screen options={{ title: '不是tab页' }} />
             <View style={styles.container}>
                 <Link href="/" style={styles.button}>
-                    {text}
+                    <Text>按钮</Text>
                 </Link>
             </View>
-        </View>
+        </>
     );
 }
 
 const styles = StyleSheet.create({
-    button: {
-        color: '#fff',
-        fontSize: 20,
-        textDecorationLine: 'underline',
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 
-    container: {
-        alignItems: 'center',
-        backgroundColor: '#25292e',
-        flex: 1,
-        justifyContent: 'center',
+    button: {
+        color: '#000',
+        fontSize: 20,
+        textDecorationLine: 'underline',
     },
 });
