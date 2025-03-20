@@ -34,7 +34,7 @@ const storage = {
         } catch (error) {
             console.error('Error clearing data:', error);
         }
-    }
+    },
 };
 
 export default storage;

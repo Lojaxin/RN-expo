@@ -1,0 +1,30 @@
+node_modules/
+.expo/
+dist/
+build/
+*.lock
+*.log
+package-lock.json
+yarn.lock
+android/
+ios/
+assets/
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+app-example
+expo-env.d.ts
+web-build/

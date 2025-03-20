@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import { userGet } from './userThunks';
 
 export interface UserState {
@@ -21,21 +21,26 @@ const userSlice = createSlice({
             // 使用 immer 的特性，直接修改 state
             state.data = payload;
         },
-        clearUser: (state) => {
+        clearUser: state => {
             // 直接修改 state
             state.data = null;
             state.status = 'idle';
             state.error = null;
-        }
+        },
     },
-    extraReducers: (builder) => {
+    extraReducers: builder => {
         builder
-            .addCase(userGet.pending, (state) => {
+            .addCase(userGet.pending, state => {
                 state.status = 'loading';
                 state.error = null;
             })
             .addCase(userGet.fulfilled, (state, action) => {
-                console.log('%c [ state, action ]-41', 'font-size:13px; background:pink; color:#bf2c9f;', state, action)
+                console.log(
+                    '%c [ state, action ]-41',
+                    'font-size:13px; background:pink; color:#bf2c9f;',
+                    state,
+                    action,
+                );
                 state.status = 'succeeded';
                 state.data = action.payload;
                 state.error = null;
@@ -44,7 +49,7 @@ const userSlice = createSlice({
                 state.status = 'failed';
                 state.error = action.error.message || 'Unknown error';
             });
-    }
+    },
 });
 
 export const { setUser, clearUser } = userSlice.actions;

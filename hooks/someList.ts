@@ -28,52 +28,51 @@ export interface ListItem {
     description: string;
     createdAt: string;
 }
-  
- export interface CreateListItem {
+
+export interface CreateListItem {
     title: string;
     description: string;
 }
 // 获取列表
 export function useList() {
-  return useQuery({
-    queryKey: ['list'],
-    queryFn: someListApi.list,
-  });
+    return useQuery({
+        queryKey: ['list'],
+        queryFn: someListApi.list,
+    });
 }
 
 // 获取单个项目
 export function useListItem(id: string) {
-  return useQuery({
-    queryKey: ['list', id],
-    queryFn: () => someListApi.get(id),
-    enabled: !!id,
-  });
+    return useQuery({
+        queryKey: ['list', id],
+        queryFn: () => someListApi.get(id),
+        enabled: !!id,
+    });
 }
 
 // 创建项目
 export function useCreateListItem() {
-  const queryClient = useQueryClient();
-  
-  return useMutation({
-    mutationFn: someListApi.create,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['list'] });
-    },
-  });
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: someListApi.create,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['list'] });
+        },
+    });
 }
 
 // 更新项目
 export function useUpdateListItem() {
-  const queryClient = useQueryClient();
-  
-  return useMutation({
-    mutationFn: (params: { id: string; data: Partial<ListItem> }) => 
-        someListApi.update(params),
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ['list'] });
-      queryClient.invalidateQueries({ queryKey: ['list', variables.id] });
-    },
-  });
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (params: { id: string; data: Partial<ListItem> }) => someListApi.update(params),
+        onSuccess: (_, variables) => {
+            queryClient.invalidateQueries({ queryKey: ['list'] });
+            queryClient.invalidateQueries({ queryKey: ['list', variables.id] });
+        },
+    });
 }
 //用法:
 // const { mutate: createItem, isPending } = useCreateListItem();
@@ -87,8 +86,8 @@ export function useUpdateListItem() {
 //       },
 //     });
 //   };
-// <Button 
-// mode="contained" 
+// <Button
+// mode="contained"
 // onPress={handleSubmit}
 // loading={isPending}
 // disabled={!title || !description}
@@ -98,12 +97,12 @@ export function useUpdateListItem() {
 
 // 删除项目
 export function useDeleteListItem() {
-  const queryClient = useQueryClient();
-  
-  return useMutation({
-    mutationFn: someListApi.delete,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['list'] });
-    },
-  });
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: someListApi.delete,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['list'] });
+        },
+    });
 }
